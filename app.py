@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import yfinance as yf
 import os
 
@@ -36,6 +36,13 @@ def home():
     ルートエンドポイント
     """
     return "Flaskアプリが正常に動作しています！"
+
+@app.route("/ai-plugin.json")
+def serve_json():
+    """
+    AI Plugin用のJSONファイルを提供
+    """
+    return send_from_directory(".", "ai-plugin.json")
 
 if __name__ == "__main__":
     # Render環境用にポートを環境変数から取得
