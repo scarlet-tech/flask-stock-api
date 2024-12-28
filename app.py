@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import yfinance as yf
+import os
 
 app = Flask(__name__)
 
@@ -29,12 +30,14 @@ def get_stock_price():
     data = get_stock_data(ticker)
     return jsonify(data)
 
-import os
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=True)
-
 @app.route("/")
 def home():
+    """
+    ルートエンドポイント
+    """
     return "Flaskアプリが正常に動作しています！"
+
+if __name__ == "__main__":
+    # Render環境用にポートを環境変数から取得
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
